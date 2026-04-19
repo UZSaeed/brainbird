@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 Brain-Bird: Muscle → Machine
+**Electromyography-Powered Human-Computer Interaction**
 
-## Getting Started
+Brain-Bird is an open-source, sub-$35 outreach demonstration that bridges the gap between neuromuscular biopotentials and digital interaction. It uses an **ESP32** and an **AD8232 EMG sensor** to read electrical activity from your forearm muscles when you squeeze, translating that bio-signal into a standard Bluetooth keyboard `Spacebar` press to play a custom HTML5 Canvas game.
 
-First, run the development server:
+![Game Preview](public/brain-sprite.png)
+
+## 🚀 The Stack
+- **Hardware:** ESP32 Dev Board, AD8232 EMG Sensor Module
+- **Firmware:** C++ (Arduino Core) with `ESP32-BLE-Keyboard`
+- **Frontend:** Next.js, React, TailwindCSS, HTML5 Canvas 
+- **Cost:** ~$35 Total Build
+
+## 🛠️ Hardware Setup
+
+### Wiring Diagram (AD8232 → ESP32)
+| AD8232 Pin | ESP32 Pin | Notes |
+| :--- | :--- | :--- |
+| **3.3V** | 3V3 | Power |
+| **GND** | GND | Common ground |
+| **OUTPUT** | GPIO 35 | Analog signal (ADC) |
+| **LO+** | GPIO 25 | Leads-off detect (optional) |
+| **LO−** | GPIO 26 | Leads-off detect (optional) |
+| **SDN** | 3V3 | Enable chip (tie high) |
+
+*Optional LEDs and Tare button can be wired according to the pin definitions in the firmware.*
+
+### Electrode Placement
+For the best signal-to-noise ratio, target the **flexor digitorum superficialis** (the large muscle belly on the inner forearm):
+1. **Red (Active):** ~2 inches below the elbow crease, centered on the muscle.
+2. **Yellow (Reference):** ~2 inches distal from the Red electrode, along the same muscle fibers.
+3. **Green (Ground):** Place on a bony, non-muscular area (like the back of the wrist or lateral elbow) for noise rejection.
+
+## 💻 Firmware Installation
+1. Install the Arduino IDE and set up the ESP32 board manager.
+2. Install the [ESP32-BLE-Keyboard library by T-vK](https://github.com/T-vK/ESP32-BLE-Keyboard).
+3. Open the firmware source code located on the homepage of the demo app.
+4. Tune the `SQUEEZE_THRESHOLD` parameter via the Serial Montior (115200 baud) based on your resting noise floor.
+5. Flash the ESP32. 
+6. Pair the ESP32 to your computer via Bluetooth (it will appear as **"HijelHID KB"**).
+
+## 🎮 Running the Web Demo
+The frontend is a lightweight Next.js application containing the custom Brain-Bird canvas game.
 
 ```bash
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Open [http://localhost:3000](http://localhost:3000) to view the application in your browser. 
+Once paired, every flex of your arm will trigger the bird to flap!
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 License
+This project is open-source and licensed under the MIT License. Built for STEM and Neuroscience outreach.
