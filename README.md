@@ -7,7 +7,7 @@ Brain-Bird is an open-source, sub-$35 outreach demonstration that bridges the ga
 
 ## 🚀 The Stack
 - **Hardware:** ESP32 Dev Board, AD8232 EMG Sensor Module
-- **Firmware:** C++ (Arduino Core) with `ESP32-BLE-Keyboard`
+- **Firmware:** C++ (Arduino Core) with `HijelHID_BLEKeyboard`
 - **Frontend:** Next.js, React, TailwindCSS, HTML5 Canvas 
 - **Cost:** ~$35 Total Build
 
@@ -33,24 +33,18 @@ For the best signal-to-noise ratio, target the **flexor digitorum superficialis*
 
 ## 💻 Firmware Installation
 1. Install the Arduino IDE and set up the ESP32 board manager.
-2. Install the [ESP32-BLE-Keyboard library by T-vK](https://github.com/T-vK/ESP32-BLE-Keyboard).
+2. Install the **HijelHID_BLEKeyboard** library (include `HijelHID_BLEKeyboard.h` in your sketch).
 3. Open the firmware source code located on the homepage of the demo app.
-4. Tune the `SQUEEZE_THRESHOLD` parameter via the Serial Montior (115200 baud) based on your resting noise floor.
-5. Flash the ESP32. 
-6. Pair the ESP32 to your computer via Bluetooth (it will appear as **"HijelHID KB"**).
+4. Flash the ESP32.
+5. Pair the ESP32 to your computer via Bluetooth (it will appear as **"HijelHID KB"**).
+6. Once paired, with your arm **fully relaxed**, press the **Tare button** once to calibrate the resting baseline. No threshold tuning needed.
 
-## 🎮 Running the Web Demo
-The frontend is a lightweight Next.js application containing the custom Brain-Bird canvas game.
+> **Heads up:** The firmware works by spamming `Spacebar` whenever your arm is squeezed. Keep the ESP32 unpaired or turn off Bluetooth on your computer until you're on the game page — otherwise any squeeze will trigger keypresses system-wide.
 
-```bash
-# Install dependencies
-npm install
+## 🎮 Playing the Game
+The demo is live at **[brainbird.vercel.app](https://brainbird.vercel.app)** — no local setup required.
 
-# Start the development server
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) to view the application in your browser. 
-Once paired, every flex of your arm will trigger the bird to flap!
+Once your ESP32 is paired and calibrated, navigate to the site and every flex of your arm will trigger the bird to flap!
 
 ## 📜 License
 This project is open-source and licensed under the MIT License. Built for STEM and Neuroscience outreach.
