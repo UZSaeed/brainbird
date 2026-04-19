@@ -230,7 +230,7 @@ void loop() {
     Serial.printf(">baseline:%.0f\\n>sample:%.0f\\n>envelope:%.1f\\n>threshold:%.0f\\n>squeeze:%d\\n",
                   baseline, sample, envelope, baseline + SQUEEZE_THRESHOLD, (int)squeezing);
   }
-}\`;
+}`;
 
 const MATERIALS = [
   {
