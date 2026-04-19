@@ -1,26 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream: #FDFCF0;
+  --brain-pink: #FFB7C5;
+  --neuro-blue: #4A90E2;
+  --dark: #1a1a2e;
+  --mid: #2d2d44;
+  --pink-light: #FFE4EC;
+  --blue-light: #D6E8FB;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--cream);
+  --color-foreground: var(--dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--cream);
+  color: var(--dark);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--brain-pink); border-radius: 3px; }
+
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.faq-content.open {
+  max-height: 500px;
+}
+
+#brain-bird-canvas canvas {
+  display: block;
+  margin: 0 auto;
+  border-radius: 16px;
+}
+
+pre {
+  scrollbar-width: thin;
+  scrollbar-color: #4A90E2 #1a1a2e;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px #FFB7C5; }
+  50% { box-shadow: 0 0 20px #FFB7C5, 0 0 40px #FFB7C570; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-anim { animation: float 3s ease-in-out infinite; }
+.pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
